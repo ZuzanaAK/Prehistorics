@@ -28,19 +28,51 @@ function renderGame() {
     requestAnimationFrame(updateCanvas)
 }
 
+//..............images...............//
+let caveMan = new Image()
+caveMan.src = "./resources/images/caveMan.png"
 
-let caveMan = ""
+let rock = new Image()
+rock.src = "./resources/images/rock.png"
+
+//..............audio...............//
+//add sounds later
+
+//..............variables...............//
 let caveManX = 250;
 let caveManY = 450;
-let caveManWidth = 120
-let caveManXIncrement = 1
+let caveManWidth = 120;
+let caveManHeight = 130;
+let caveManXIncrement = 8;
+
+let isRightArrow = false;
+let isLeftArrow = false;
+
+let score = 0;
+let winScore = 10;
+
+let rocks = [ { x: 600, y: 150 } ];
+let rockX = rocks.x;
+let rockY = rocks.y;
+let rockWidth = 50;
+
+let rockYincrement = 2;
+let rockXincrement = 5;
+let rockYincrementMore = 4;60
+
+let totalRocks = 10;
+
+
+
+
+
+
 
 function drawCaveMan() {
-    let caveMan = new Image()
-    caveMan.src = "./resources/images/caveMan.png"
-    ctx.drawImage(caveMan, caveManX, caveManY, caveManWidth, 130)
+    ctx.drawImage(caveMan, caveManX, caveManY, caveManWidth, caveManHeight)
   }
 
+//..............move caveMan to left and right...............//
 function updateCanvas() {
     if (isRightArrow && (caveManX + caveManWidth < canvas.width) ) {
         caveManX += caveManXIncrement
@@ -52,11 +84,16 @@ function updateCanvas() {
     
     drawCaveMan()
     requestAnimationFrame(updateCanvas)
+    drawRock()
+    addRocks()
+    moveRocks()
+
+    ctx.font = '22px Verdana'
+    ctx.fillStyle = "white"
+    ctx.fillText('Score: ' + score, 250, 50)
+
   }
 
-  let isRightArrow = false;
-  let isLeftArrow = false;
-  //conditions for pressing left and right (movement defined in the if statement in the startGame ())
   document.addEventListener('keydown', (event) => {
     if (event.keyCode == 39 || event.key == 'ArrowRight' ) {
         isRightArrow = true;
@@ -68,13 +105,14 @@ function updateCanvas() {
         isLeftArrow = true;
       }
     })
-  //when right or left button is released, it is set back to false
+ 
   document.addEventListener('keyup', (event) => {
     isRightArrow = false;
     isLeftArrow = false;
     })
 
-  function carCollision() {
+//..............caveMan left and right colision...............//  
+  function caveManCollision() {
     //right
     if (caveManX > canvas.width - caveManWidth) {
         caveManXIncrement = -1
@@ -84,4 +122,71 @@ function updateCanvas() {
         caveManXIncrement = 1
     }
   }
+
+//..............draw the rock...............// 
+
+  function drawRock() {
  
+    for (let i = 0; i < rocks.length; i++) { 
+        ctx.drawImage(rock, rocks[i].x, rocks[i].y);
+        //collisionRocks(i);
+        }
+    }
+//..............rock colision...............// 
+
+    const collisionRocks = (i) => {
+        //let removeCroissants = [];
+    
+        if (caveManX < rocks[i].x + rock.width &&
+            caveManX + caveMan.width >= rocks[i].x &&
+            caveManY < rocks[i].y + caveMan.height &&
+            caveManY + caveMan.height > rocks[i].y) 
+            {
+
+            } else {
+
+            }
+                
+    }
+
+    //..............add rocks...............// 
+
+    const addRocks = () => {
+        if (score < 8) {
+            let randomPossibility = Math.floor(Math.random() * 190) 
+            //randomPlace = place on x axis
+            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))//minus NUMBER to stop the food from going out of the canvas
+            if(randomPossibility === 1){
+                var rock = {
+                    x: randomPlace,
+                    y: 10
+                }
+                    rocks.push(rock);
+            } 
+        } else {
+            let randomPossibility = Math.floor(Math.random() * 60) 
+            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))//minus NUMBER to stop the food from going out of the canvas
+            if(randomPossibility === 1){
+                var rock = {
+                    x: randomPlace,
+                    y: 10
+                }
+                    rocks.push(rock);
+            } 
+        }
+    }
+
+
+    //..............move rocks...............// 
+
+    const moveRocks = () => {
+        rocks.forEach((rocks) => {
+            if (score <= 4) {
+                rocks.y++
+            } else if (score > 4 && score <= 8 ) {
+                rocks.y += rockYincrement
+            } else {
+                rocks.y += rockYincrementMore
+            }
+        })
+    }

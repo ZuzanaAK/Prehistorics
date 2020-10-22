@@ -20,3 +20,13 @@
     text-align: center;
     margin: 20px;
 }
+
+#start-btn {
+    height: 100px;
+}
+
+#play {
+    color: cornsilk;
+    font-weight: bold;
+    font-size: x-large;
+}
