@@ -155,7 +155,7 @@ function updateCanvas() {
         if (score < 8) {
             let randomPossibility = Math.floor(Math.random() * 190) 
             //randomPlace = place on x axis
-            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))//minus NUMBER to stop the food from going out of the canvas
+            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
             if(randomPossibility === 1){
                 var rock = {
                     x: randomPlace,
@@ -165,7 +165,7 @@ function updateCanvas() {
             } 
         } else {
             let randomPossibility = Math.floor(Math.random() * 60) 
-            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))//minus NUMBER to stop the food from going out of the canvas
+            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
             if(randomPossibility === 1){
                 var rock = {
                     x: randomPlace,
