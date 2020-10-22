@@ -37,7 +37,7 @@ let caveManXIncrement = 1
 
 function drawCaveMan() {
     let caveMan = new Image()
-    caveMan.src = "/Prehistorics/resources/images/caveMan.png"
+    caveMan.src = "./resources/images/caveMan.png"
     ctx.drawImage(caveMan, caveManX, caveManY, caveManWidth, 130)
   }
 
