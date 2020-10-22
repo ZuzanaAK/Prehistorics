@@ -135,19 +135,16 @@ function updateCanvas() {
 //..............rock colision...............// 
 
     const collisionRocks = (i) => {
-        //let removeCroissants = [];
     
         if (caveManX < rocks[i].x + rock.width &&
             caveManX + caveMan.width >= rocks[i].x &&
             caveManY < rocks[i].y + caveMan.height &&
             caveManY + caveMan.height > rocks[i].y) 
             {
-
-            } else {
-
-            }
-                
-    }
+            clearInterval(intervalId);
+            gameOver();
+        } 
+    } 
 
     //..............add rocks...............// 
 
@@ -189,4 +186,18 @@ function updateCanvas() {
                 rocks.y += rockYincrementMore
             }
         })
+    }
+
+    const gameOver = () => {
+        let canvas = document.querySelector("canvas")
+        canvas.clasName = "hidden"
+
+        let gameOverScreen = document.createElement("div")
+        gameOverScreen.innerHTML =`
+
+            <button id="start-btn" onclick="location.href='index.html'"><span id="play">PLAY ONCE MORE!</span></button>
+        `
+        let body = document.querySelector("body")
+        canvas.parentNode.removeChild(canvas)
+        body.appendChild(gameOverScreen)
     }
