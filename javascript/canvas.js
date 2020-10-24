@@ -1,20 +1,14 @@
-// target body
+//..............creating the canvas...............//
 let body = document.querySelector("body")
-// target splash screen
 let splashScreen = document.querySelector("#splash")
-// create the canvas tag element
-// createElement
 let canvasContainer = document.createElement("div")
 canvasContainer.innerHTML = `<canvas width="600" height="600"></canvas>`
-// target button
 let startBtn = document.querySelector("#start-btn")
 
 //let ctx = canvasContainer.getContext("2d")
 
 startBtn.addEventListener("click", () => {
-    // remove the splash
     splashScreen.parentNode.removeChild(splashScreen)
-    // insert the canvas
     body.appendChild(canvasContainer)
     canvas = document.querySelector("canvas")
     canvas.style.backgroundColor = "#FFC300"
@@ -35,6 +29,9 @@ caveMan.src = "./resources/images/caveMan.png"
 let rock = new Image()
 rock.src = "./resources/images/rock.png"
 
+let mammut = new Image ()
+mammut.src = "./resources/images/mammut.png"
+
 //..............audio...............//
 //add sounds later
 
@@ -49,31 +46,33 @@ let isRightArrow = false;
 let isLeftArrow = false;
 
 let score = 0;
-let winScore = 10;
 
-let rocks = [ { x: 600, y: 150 } ];
+let rocks = [ { x: 500, y: 150 } ];
 let rockX = rocks.x;
 let rockY = rocks.y;
 let rockWidth = 50;
 
 let rockYincrement = 2;
 let rockXincrement = 5;
-let rockYincrementMore = 4;60
+let rockYincrementMore = 4;
 
-let totalRocks = 10;
+let mammuts = [{ x: 300, y: 150 }];
+let mammutX = mammuts.x;
+let mammutY = mammuts.y;
+
+let mammutsYincrement = 2;
+let mammutsXincrement = 5;
+let mammutsYincrementMore = 4;
 
 
 
 
-
-
-
-function drawCaveMan() {
+const drawCaveMan = () => {
     ctx.drawImage(caveMan, caveManX, caveManY, caveManWidth, caveManHeight)
   }
 
 //..............move caveMan to left and right...............//
-function updateCanvas() {
+updateCanvas = () => {
     if (isRightArrow && (caveManX + caveManWidth < canvas.width) ) {
         caveManX += caveManXIncrement
     }
@@ -87,6 +86,12 @@ function updateCanvas() {
     drawRock()
     addRocks()
     moveRocks()
+    drawMammut()
+    addMammut()
+    moveMammut() 
+   // collisionRocks()
+   // collisionMammuts()
+
 
     ctx.font = '22px Verdana'
     ctx.fillStyle = "white"
@@ -112,7 +117,7 @@ function updateCanvas() {
     })
 
 //..............caveMan left and right colision...............//  
-  function caveManCollision() {
+  const caveManCollision = () => {
     //right
     if (caveManX > canvas.width - caveManWidth) {
         caveManXIncrement = -1
@@ -125,45 +130,74 @@ function updateCanvas() {
 
 //..............draw the rock...............// 
 
-  function drawRock() {
+  const drawRock = () => {
  
     for (let i = 0; i < rocks.length; i++) { 
         ctx.drawImage(rock, rocks[i].x, rocks[i].y);
-        //collisionRocks(i);
         }
     }
-//..............rock colision...............// 
 
-    const collisionRocks = (i) => {
+//..............draw the mammut...............// 
+
+    const drawMammut = () => {
+ 
+    for (let i = 0; i < mammuts.length; i++) { 
+        ctx.drawImage(mammut, mammuts[i].x, mammuts[i].y);
+        }
+    }
+
     
-        if (caveManX < rocks[i].x + rock.width &&
-            caveManX + caveMan.width >= rocks[i].x &&
-            caveManY < rocks[i].y + caveMan.height &&
-            caveManY + caveMan.height > rocks[i].y) 
+//..............rock colision...............// 
+//NOT WORKING FOR NOW
+    const collisionRocks = () => {
+    
+        if (//caveManX < rocks[i].x + rock.width &&
+            //caveManX + caveMan.width >= rocks[i].x &&
+            caveManY < rocks[i].y + caveManHeight &&
+            caveManY + caveManHeight > rocks[i].y) 
             {
             clearInterval(intervalId);
             gameOver();
         } 
     } 
 
-    //..............add rocks...............// 
+//..............rock colision...............//
+//NOT WORKING FOR NOW
+    const collisionMammuts = () => {
+    
+        if (//caveManX < mammuts[i].x + mammut.width &&
+            //caveManX + caveMan.width >= mammuts[i].x &&
+            caveManY < mammuts[i].y + caveManHeight &&
+            caveManY + caveManHeight > mammuts[i].y) 
+            {
+            //clearInterval(intervalId);
+            score++
+
+        /*    if (score > 10) {
+                winGame()
+            }*/
+        } 
+    } 
+
+//..............add rocks...............// 
 
     const addRocks = () => {
         if (score < 8) {
             let randomPossibility = Math.floor(Math.random() * 190) 
             //randomPlace = place on x axis
             let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
-            if(randomPossibility === 1){
+            if (randomPossibility === 1) {
                 var rock = {
                     x: randomPlace,
                     y: 10
                 }
-                    rocks.push(rock);
-            } 
-        } else {
-            let randomPossibility = Math.floor(Math.random() * 60) 
-            let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
-            if(randomPossibility === 1){
+                    rocks.push(rock)}
+             
+            } else {
+                let randomPossibility = Math.floor(Math.random() * 60) 
+                let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
+
+            if (randomPossibility === 1) {
                 var rock = {
                     x: randomPlace,
                     y: 10
@@ -173,8 +207,23 @@ function updateCanvas() {
         }
     }
 
+//..............add mammuts...............// 
 
-    //..............move rocks...............// 
+    const addMammut = () => {
+        let randomPossibility = Math.floor(Math.random() * 180) 
+        let randomPlace = Math.floor(Math.random() * (canvas.width - 30))
+            if(randomPossibility === 1){
+                var mammut = {
+                    x: randomPlace,
+                    y: 10
+                }
+
+            mammuts.push(mammut);
+        } 
+    }
+
+
+//..............move rocks and level it up...............// 
 
     const moveRocks = () => {
         rocks.forEach((rocks) => {
@@ -188,6 +237,21 @@ function updateCanvas() {
         })
     }
 
+//..............move mammuts and level it up...............//    
+
+    const moveMammut = () => {
+        mammuts.forEach((mammuts) => {
+            if (score <= 4) {
+                mammuts.y++
+            } else if (score > 4 && score <= 8 ) {
+                mammuts.y += mammutYincrement
+            } else {
+                mammuts.y += mammutYincrementMore
+            }
+        })
+    }
+ //..............game over screen...............// 
+
     const gameOver = () => {
         let canvas = document.querySelector("canvas")
         canvas.clasName = "hidden"
@@ -200,4 +264,12 @@ function updateCanvas() {
         let body = document.querySelector("body")
         canvas.parentNode.removeChild(canvas)
         body.appendChild(gameOverScreen)
+    }
+
+ //..............winning screen...............//     
+
+    const winGame = () => {
+        if (score > 10) {
+
+        }
     }
