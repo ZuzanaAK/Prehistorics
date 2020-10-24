@@ -63,6 +63,8 @@ let rockYincrementMore = 5;
 let mammuts = [{ x: 300, y: 150 }];
 let mammutX = mammuts.x;
 let mammutY = mammuts.y;
+let mammutWidth = 50;
+let mammutHeight = 50;
 
 let mammutsYincrement = 2;
 let mammutsXincrement = 4;
@@ -96,7 +98,7 @@ updateCanvas = () => {
     addMammut()
     moveMammut() 
     collisionRocks()
-    //collisionMammuts()
+    collisionMammuts()
 
 
     ctx.font = '22px Verdana'
@@ -156,7 +158,7 @@ updateCanvas = () => {
 
     
 //..............rock colision...............// 
-//NOT WORKING
+
     const collisionRocks = () => {
         
         for (let i = 0; i < rocks.length; i++) { 
@@ -171,22 +173,25 @@ updateCanvas = () => {
     } 
 
 //..............mammut colision...............//
-//NOT WORKING
+
     const collisionMammuts = (i) => {
-    
-        if (caveManX < mammuts[i].x + mammut.width &&
-            caveManX + caveMan.width >= mammuts[i].x &&
-            caveManY < mammuts[i].y + caveManHeight &&
-            caveManY + caveManHeight > mammuts[i].y) 
-            {
-            score++
 
-            if (score === 10) {
-                winGame()
-            }
+        for (let i = 0; i < mammuts.length; i++) {
+            if (caveManX < mammuts[i].x + mammutWidth &&
+                caveManX + caveManWidth >= mammuts[i].x &&
+                caveManY < mammuts[i].y + mammutHeight &&
+                caveManY + caveManHeight > mammuts[i].y) 
+                {
+                
+                //DEFINE mammut increment! :)    
+                score++
+
+                if (score === 10) {
+                    winGame()
+                }
+            } 
         } 
-    } 
-
+    }
 //..............add rocks...............// 
 
     const addRocks = () => {
