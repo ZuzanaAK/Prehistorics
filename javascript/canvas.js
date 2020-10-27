@@ -60,9 +60,9 @@ let rockYincrement = 2;
 let rockXincrement = 4;
 let rockYincrementMore = 5;
 
-let mammuts = [{ x: 300, y: 150 }];
-let mammutX = mammuts.x;
-let mammutY = mammuts.y;
+let mammuts = [];
+let mammutX = 300;
+let mammutY = 150;
 let mammutWidth = 50;
 let mammutHeight = 50;
 
@@ -70,7 +70,7 @@ let mammutsYincrement = 2;
 let mammutsXincrement = 4;
 let mammutsYincrementMore = 5;
 
-
+touchedMammut = [];
 
 
 //..............draw caveMan...............//
@@ -183,12 +183,16 @@ updateCanvas = () => {
                 caveManY + caveManHeight > mammuts[i].y) 
                 {
                 
-                //DEFINE mammut increment! :)    
-                score++
-
+                if (!touchedMammut.includes(i)) {    
+                    score++
+                    touchedMammut.push(i)
+                
                 if (score === 10) {
                     winGame()
                 }
+
+                //mammuts[i] = null
+                } 
             } 
         } 
     }
@@ -197,7 +201,6 @@ updateCanvas = () => {
     const addRocks = () => {
         if (score < 8) {
             let randomPossibility = Math.floor(Math.random() * 190) 
-            //randomPlace = place on x axis
             let randomPlace = Math.floor(Math.random() * (canvas.width  - 30))
             if (randomPossibility === 1) {
                 var rock = {
@@ -240,13 +243,8 @@ updateCanvas = () => {
 
     const moveRocks = () => {
         rocks.forEach((rocks) => {
-            if (score <= 4) {
-                rocks.y++
-            } else if (score > 4 && score <= 7 ) {
-                rocks.y += rockYincrement
-            } else {
-                rocks.y += rockYincrementMore
-            }
+            if (rock !== null) {
+                rocks.y++}
         })
     }
 
@@ -254,25 +252,36 @@ updateCanvas = () => {
 
     const moveMammut = () => {
         mammuts.forEach((mammuts) => {
-            if (score <= 4) {
+            if (mammuts !== null) {
+                mammuts.y++
+            }
+            /*if (score <= 4) {
                 mammuts.y++
             } else if (score > 4 && score <= 7 ) {
                 mammuts.y += mammutYincrement
             } else {
                 mammuts.y += mammutYincrementMore
-            }
+            }*/
         })
     }
  //..............game-over screen...............// 
 
     const gameOver = () => {
         let canvas = document.querySelector("canvas")
-        canvas.clasName = "hidden"
+        canvas.className = "hidden"
 
         let gameOverScreen = document.createElement("div")
         gameOverScreen.innerHTML =`
-
-            <button id="start-btn" onclick="location.href='index.html'"><span id="play">PLAY ONCE MORE!</span></button>
+        <body id="body">
+        <div id="splash">
+        <section class="content" id="margin">
+            <h2>Bummer, you lost!</h2>
+            <h5>- no man, caveman included, can survive being hit by such a rock! -</h5>
+            <p>- don't give up and try again -</p>
+            <button id="start-btn" id="button" onclick="location.href='index.html'"><span id="play">PLAY ONCE MORE!</span></button>
+        </section>
+        </div>
+        </body>
         `
         let body = document.querySelector("body")
         canvas.parentNode.removeChild(canvas)
@@ -287,9 +296,17 @@ updateCanvas = () => {
 
         let winGame = document.createElement("div")
         winGame.innerHTML = `
-
-            <button id="start-btn" onclick="location.href='index.html'"><span id="play">PLAY ONCE MORE!</span></button>
-        `
+            <body id="body">
+            <div id="splash">
+            <section class="content" id="margin">
+                <h2>Congratulations, YOU WON!</h2>
+                <h5>- all the mammuts have been caught and are ready to be brought to your cave -</h5>
+                <p>- good job! -</p>
+                <button id="start-btn" id="button" onclick="location.href='index.html'"><span id="play">PLAY ONCE MORE!</span></button>
+            </section>
+            </div>
+            </body>
+            `
         let body = document.querySelector("body")
         canvas.parentNode.removeChild(canvas)
         body.appendChild(winGame)

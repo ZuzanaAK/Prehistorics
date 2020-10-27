@@ -23,11 +23,20 @@
 
 #start-btn {
     height: 100px;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 #play {
     color: cornsilk;
     font-weight: bold;
     font-size: x-large;
+}
+
+
+#button {
+    background-color: #FFC300;
+}
+
+#margin {
+    margin: 20px;
 }
