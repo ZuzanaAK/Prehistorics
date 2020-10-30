@@ -15,11 +15,11 @@ After catching 10 mammoths the game is won. The player has only one life.
 * the winning screen appears once the cavemn collects 10 mammoths
 * the game has 3 levels - the first level is slow, the second level makes the rocks falling down faster and the third level is even faster
 
-## BACKLOG
+## Backlog
 * make the caveman jump
 * add lives
 
-## DATA STRUCTURE
+## Data structure
 canvas.js
 * drawCaveMan()
 * drawRock()
@@ -33,3 +33,6 @@ canvas.js
 
 ## Slides
 * presentation: https://docs.google.com/presentation/d/1RAawTSVcbV3stnuPn1pBxkmABWCy1N-FoCz11vOSQY8/edit?usp=sharing
+
+## Deployed game
+  https://zuzanaak.github.io/Prehistorics/
