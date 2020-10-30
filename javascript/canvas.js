@@ -46,14 +46,14 @@ const yesSound = () => {
 const oOh = () => {
     let oo = new Audio ();
     oo.src = "./resources/sounds/o-oh.mp3"
-    oo.volume = "0.7";
+    oo.volume = "0.5";
     oo.play()
 }
 
 const youWon = () => {
     let won = new Audio ();
     won.src = "./resources/sounds/youWon.mp3"
-    won.volume = "0.7";
+    won.volume = "0.5";
     won.play()
 }
 
@@ -90,7 +90,8 @@ let rocksYincrement = 3;
 let rocksXincrement = 5;
 let rocksYincrementMore = 5;
 
-
+//var requestId;
+var pause = false;
 
 //..............draw caveMan...............//
 
@@ -123,6 +124,15 @@ updateCanvas = () => {
     ctx.font = '22px Verdana'
     ctx.fillStyle = "white"
     ctx.fillText('mammoths: ' + score, 230, 50)
+
+    //requestId = undefined;
+
+    /*if (!requestId) {
+        requestId = window.requestAnimationFrame(updateCanvas)
+    }*/
+
+    /*if (pause) 
+        return window.requestAnimationFrame(updateCanvas)*/
 
     requestAnimationFrame(updateCanvas)
   }
@@ -186,13 +196,23 @@ const collisionRocks = () => {
             caveManY < (rocks[i].y) + rockHeight &&
             caveManY + caveManHeight > (rocks[i].y)) 
             {   
-               clearInterval(intervalId);
+               //clearInterval(intervalId);
                                
                 gameOver();
-                
+               // stopAnimation();
             }
     }
 } 
+
+//..........stopAnimation...........//
+/*const stopAnimation = () => {
+
+    /*if (requestId) {
+        window.cancelAnimationFrame(requestId);
+        requestId = undefined;
+    }*/
+    /*pause = true;
+}*/
 
 //..............mammut collision...............//
 
@@ -315,6 +335,10 @@ const gameOver = () => {
 
 const winGame = () => {
     youWon()
+    /*clearInterval(intervalId)
+    oOh.currentTime = 0;
+    oOh.pause();*/
+
     let canvas = document.querySelector("canvas")
     canvas.className = "hidden"
 
