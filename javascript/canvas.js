@@ -68,7 +68,7 @@ let isRightArrow = false;
 let isLeftArrow = false;
 
 let score = 0;
-let level;
+let level = 1;
 let intervalId = 0; 
 
 let rocks = [ { x: 500, y: 150 } ];
@@ -231,8 +231,8 @@ const collisionMammuts = () => {
                 mammuts.splice(i,1)
 
                 if (score < 4 && score >=0) {
-                    level = 1
-                } else if (score === 4 || score === 5 || score === 6) {
+                    level === 1
+                }  if (score === 4 || score === 5 || score === 6) {
                     level = 2
                 } else if (score === 7 || score === 8 || score === 9 || score ===10) {
                     level = 3
