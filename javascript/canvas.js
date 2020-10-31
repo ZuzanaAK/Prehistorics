@@ -42,21 +42,21 @@ mammut.src = "./resources/images/mammut.png"
 const yesSound = () => {
     let yes = new Audio();
     yes.src = "./resources/sounds/yes.wav"
-    yes.volume = "0.6";
+    yes.volume = "0.4";
     yes.play()
 }
 
 const oOh = () => {
     let oo = new Audio();
     oo.src = "./resources/sounds/o-oh.mp3"
-    oo.volume = "0.5";
+    oo.volume = "0.4";
     oo.play()
 }
 
 const youWon = () => {
     let won = new Audio();
     won.src = "./resources/sounds/youWon.mp3"
-    won.volume = "0.5";
+    won.volume = "0.4";
     won.play()
 }
 
@@ -137,7 +137,7 @@ updateCanvas = () => {
 
     ctx.font = '22px Verdana'
     ctx.fillStyle = "white"
-    ctx.fillText('level: ' + level, 245, 70)
+    ctx.fillText('level: ' + level, 255, 75)
  
     if (loopID) {
         requestAnimationFrame(updateCanvas)
