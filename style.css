@@ -11,6 +11,8 @@
 #splash{
     justify-content: center;
     background-color: burlywood;
+    padding: 20px;
+    text-align: center;
 }
 
 .content {
@@ -37,6 +39,12 @@
     background-color: #FFC300;
 }
 
-#margin {
-    margin: 20px;
+#gameOver{
+    margin: 0 auto;
+    text-align: center;
+}
+
+#winGame{
+    margin: 0 auto;
+    text-align: center;
 }
