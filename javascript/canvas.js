@@ -14,6 +14,7 @@ startBtn.addEventListener("click", () => {
     ctx = canvas.getContext("2d")
 
     renderGame()
+    backgroundMusic()
 })
 
 //..............render game...............//
@@ -57,6 +58,14 @@ const youWon = () => {
     won.src = "./resources/sounds/youWon.mp3"
     won.volume = "0.5";
     won.play()
+}
+
+let music = new Audio();
+music.src = "./resources/sounds/gotye.mp3"
+
+const backgroundMusic = () => {
+    music.volume = "0.1";
+    music.play()
 }
 
 //..............variables...............//
@@ -304,6 +313,9 @@ const moveMammut = () => {
 //..............game-over screen...............// 
 
 const gameOver = () => {
+    music.currentTime = 0;
+    music.pause();
+
     oOh();
     let canvas = document.querySelector("canvas")
     canvas.className = "hidden"
@@ -333,10 +345,10 @@ const gameOver = () => {
 //..............winning screen...............//     
 
 const winGame = () => {
+    music.currentTime = 0;
+    music.pause();
+
     youWon()
-    /*clearInterval(intervalId)
-    oOh.currentTime = 0;
-    oOh.pause();*/
 
     let canvas = document.querySelector("canvas")
     canvas.className = "hidden"
