@@ -68,6 +68,7 @@ let isRightArrow = false;
 let isLeftArrow = false;
 
 let score = 0;
+let level;
 let intervalId = 0; 
 
 let rocks = [ { x: 500, y: 150 } ];
@@ -75,10 +76,6 @@ let rockX = rocks.x;
 let rockY = rocks.y;
 let rockWidth = 50;
 let rockHeight = 50;
-
-let rockYincrement = 2;
-let rockXincrement = 4;
-let rockYincrementMore = 5;
 
 let mammuts = [];
 let mammutX = 300;
@@ -91,7 +88,7 @@ let rocksXincrement = 5;
 let rocksYincrementMore = 5;
 
 //var requestId;
-var pause = false;
+//var pause = false;
 
 //..............draw caveMan...............//
 
@@ -124,6 +121,10 @@ updateCanvas = () => {
     ctx.font = '22px Verdana'
     ctx.fillStyle = "white"
     ctx.fillText('mammoths: ' + score, 230, 50)
+
+    ctx.font = '22px Verdana'
+    ctx.fillStyle = "white"
+    ctx.fillText('level: ' + level, 245, 70)  
 
     //requestId = undefined;
 
@@ -228,6 +229,14 @@ const collisionMammuts = () => {
                 yesSound(); 
                 score++;
                 mammuts.splice(i,1)
+
+                if (score < 4 && score >=0) {
+                    level = 1
+                } else if (score === 4 || score === 5 || score === 6) {
+                    level = 2
+                } else if (score === 7 || score === 8 || score === 9 || score ===10) {
+                    level = 3
+                }
 
                 if (score === 10) {
                     winGame()
