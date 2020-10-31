@@ -14,6 +14,7 @@ After catching 10 mammoths the game is won. The player has only one life.
 * the game-over screen appears once the caveman touches a rock
 * the winning screen appears once the caveman collects 10 mammoths
 * the game has 3 levels - the first level is slow, the second level makes the rocks falling down faster and the third level is even faster
+* background music, music effects when a mammoth is caught + music for winning screen and game-over screen
 
 ## Backlog
 * make the caveman jump
